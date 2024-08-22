@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -17,6 +18,12 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def total_likes(self):
+        return self.likes.count()
+
+    def get_absolute_url(self):
+        return reverse('blog-detail', args=[str(self.id)])
 
 class Comment(models.Model):
     blog_post = models.ForeignKey(BlogPost, related_name='comments', on_delete=models.CASCADE)

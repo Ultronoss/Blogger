@@ -99,8 +99,8 @@ def share_post(request, pk):
         if form.is_valid():
             cd = form.cleaned_data
             post_url = request.build_absolute_uri(post.get_absolute_url())
-            subject = f"{cd['name']} ({cd['email']}) recommends you reading '{post.title}'"
-            message = f"Read '{post.title}' at {post_url}\n\n{cd['name']}\'s comments: {cd['comments']}"
+            subject = f"{cd['name']} recommends you read \"{post.title}\""
+            message = f"Read \"{post.title}\" at {post_url}\n\n{cd['name']}\'s comments: {cd['comments']}"
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [cd['to']])
             sent = True
     else:
@@ -108,10 +108,10 @@ def share_post(request, pk):
 
     return render(request, 'blog/share_post.html', {'post': post, 'form': form, 'sent': sent})
 
+@login_required
 def profile(request, username):
-    user = get_object_or_404(User, username=username)
-    posts = BlogPost.objects.filter(author=user).order_by('-publish_date')
-    return render(request, 'blog/profile.html', {'profile_user': user, 'posts': posts})
+    profile_user = get_object_or_404(User, username=username)
+    return render(request, 'blog/profile.html', {'profile_user': profile_user})
 
 def search(request):
     query = request.GET.get('q')

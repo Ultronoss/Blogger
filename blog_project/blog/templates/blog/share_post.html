@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Post</title>
-</head>
-<body>
-    <h2>Share "{{ post.title }}"</h2>
-    {% if sent %}
-        <p>Email successfully sent!</p>
-    {% else %}
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Send Email</button>
-        </form>
-    {% endif %}
-    <a href="{% url 'blog-detail' post.pk %}">Back to Post</a>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block title %}Share Post{% endblock %}
+
+{% block content %}
+<h2>Share "{{ post.title }}"</h2>
+
+{% if sent %}
+    <p>Email successfully sent!</p>
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Send Email</button>
+    </form>
+{% endif %}
+
+<a href="{% url 'blog-detail' post.pk %}" class="btn btn-secondary mt-3">Back to Post</a>
+{% endblock %}
