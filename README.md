@@ -116,7 +116,8 @@ Click the "Share via Email" button on a post, fill in the recipient's email, and
 
 
 **Developer Guide**
-1. ***Project Structure***
+
+***Project Structure***
 
 - blog_project/: Root directory of the project.
 
@@ -132,14 +133,4 @@ Click the "Share via Email" button on a post, fill in the recipient's email, and
 
 - templates/blog/: HTML templates.
 
-- static/: Static files (CSS, JS).
 
-2. ***Adding a New Feature***
-
-- Model: Define a new model in models.py.
-
-- View: Create a view in views.py to handle the logic.
-
-- Template: Add or modify a template in templates/blog/.
-
-- URL: Add a new URL pattern in urls.py to map the view.
