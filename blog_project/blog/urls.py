@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BlogPostListView, BlogPostDetailView, like_post, register, create_blog_post, share_post, profile,search,tag_posts
+from .views import BlogPostListView, BlogPostDetailView, like_post, register, create_blog_post, share_post, profile,search, tag_posts, logout_view
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -8,7 +8,7 @@ urlpatterns = [
     path('post/<int:pk>/like/', like_post, name='like-post'),
     path('register/', register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
+    path('logout/', logout_view, name='logout'),
     path('post/new/', create_blog_post, name='create-post'),
     path('post/<int:pk>/share/', share_post, name='share-post'),
     path('profile/<str:username>/', profile, name='profile'),

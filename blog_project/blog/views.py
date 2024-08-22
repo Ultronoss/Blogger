@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib.auth import logout
 
 class BlogPostListView(ListView):
     model = BlogPost
@@ -124,3 +125,7 @@ def tag_posts(request, tag_name):
     tag = get_object_or_404(Tag, name=tag_name)
     posts = BlogPost.objects.filter(tags=tag)
     return render(request, 'blog/tag_posts.html', {'posts': posts, 'tag': tag})
+
+def logout_view(request):
+    logout(request)
+    return redirect('blog-home') 

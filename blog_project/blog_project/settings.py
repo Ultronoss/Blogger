@@ -132,3 +132,4 @@ EMAIL_HOST_PASSWORD = 'tehq qvgq kywd wbvo'
 DEFAULT_FROM_EMAIL = 'rajmishra90607@gmail.com'
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/blog-home'
