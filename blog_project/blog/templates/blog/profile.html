@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ profile_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<h2>{{ profile_user.username }}'s Profile</h2>
+
+{% if profile_user.profile.bio %}
+    <p>{{ profile_user.profile.bio }}</p>
+{% endif %}
+
+<h3>Posts by {{ profile_user.username }}</h3>
+{% for post in posts %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title"><a href="{% url 'blog-detail' post.pk %}">{{ post.title }}</a></h2>
+            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+            <a href="{% url 'blog-detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on {{ post.publish_date }} by {{ profile_user.username }}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

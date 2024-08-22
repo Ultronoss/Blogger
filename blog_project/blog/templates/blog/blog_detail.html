@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<article class="mb-4">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <p class="lead">by {{ post.author }}</p>
+    <p><span class="badge badge-secondary">{{ post.publish_date }}</span></p>
+    <hr>
+    <p>{{ post.content }}</p>
+</article>
+<p>
+    <strong>Tags:</strong>
+    {% for tag in post.tags.all %}
+        <a href="{% url 'tag-posts' tag.name %}" class="badge badge-primary">{{ tag.name }}</a>
+    {% endfor %}
+</p>
+
+<div class="mb-4">
+    <h3>Likes: {{ post.total_likes }}</h3>
+    <form action="{% url 'like-post' post.pk %}" method="POST">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            {% if user in post.likes.all %}
+                <button type="submit" class="btn btn-danger">Unlike</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary">Like</button>
+            {% endif %}
+        {% else %}
+            <p><a href="{% url 'login' %}" class="btn btn-info">Login to like this post</a></p>
+        {% endif %}
+    </form>
+</div>
+
+<div class="mb-4">
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <div class="border rounded p-3 mb-3">
+            <p><strong>{{ comment.user.username }}</strong> on {{ comment.created_at }}:</p>
+            <p>{{ comment.content }}</p>
+        </div>
+    {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h4>Leave a Comment</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Submit Comment</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login to leave a comment</a></p>
+    {% endif %}
+</div>
+
+<div class="mb-4">
+    <h3>Share this post via Email</h3>
+    <form action="{% url 'share-post' post.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning">Share via Email</button>
+    </form>
+</div>
+{% endblock %}
