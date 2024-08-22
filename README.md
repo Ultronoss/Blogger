@@ -6,7 +6,7 @@ This Django-based blog application allows users to register, create, and manage 
 **Setup Information**:
 ***1. Clone the repository***
 `git clone https://github.com/Ultronoss/Blogger`
-`cd your-repo`
+`cd blog_project`
 
 ***2. Set Up a Virtual Environment:***
 `python3 -m venv venv`
